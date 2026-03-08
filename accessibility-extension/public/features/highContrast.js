@@ -44,6 +44,8 @@ window.HighContrastFeature = {
     html.high-contrast a div {
     color: #002fff !important;
     }
+
+    
     `,
 
     
