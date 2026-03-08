@@ -53,19 +53,19 @@ This platform enhances web content with AI-powered tools and accessibility featu
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/yourproject.git
-   bash```
+   ```
 2. Install dependencies:
    ```bash
    npm install
-   bash```
+   ```
 4. Set environment variables:
    ```bash
     REACT_APP_FEATHERLESS_API_KEY=<your_featherless_api_key>
     REACT_APP_ELEVENLABS_API_KEY=<your_elevenlabs_api_key>
     REACT_APP_VOICE_ID=<your_voice_id>
-   bash```
+   ```
 5. Start the npm server:
    ```bash
    npm run build
-   bash```
+   ```
 6. Navigate to Chrome Extensions and enable Developer Mode. Click "Load unpacked" and select the dist folder of the project.
