@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Open Accessibility Tool",
+  "version": "1.0.0",
+  "description": "A suite of accessibility modifications for the web.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Accessibility Settings"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "pageModifier.js",
+        "features/dyslexiaFont.js",
+        "features/largeCursor.js",
+        "features/fontSize.js",
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["features/*", "pageModifier.js", "fonts/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
