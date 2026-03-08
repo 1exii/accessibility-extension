@@ -1,0 +1,5 @@
+- font size (slider? cant increase font size too big)
+- change cursor image
+- make ui better looking 
+- be able to enter in font size
+- ai summarizing features
