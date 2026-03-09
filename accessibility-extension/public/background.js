@@ -120,6 +120,6 @@ Also, assign a difficulty level (1-10) to the original text based on these categ
             .then(res => res.json())
             .then(data => sendResponse({ content: data.choices?.[0]?.message?.content }))
             .catch(err => sendResponse({ error: err.message }));
-        return true; // Keep channel open
+        return true;
     }
 })

@@ -48,12 +48,11 @@ const handlePageSummary = () => {
         overlay.style.display = 'block';
         summaryText.innerText = 'Generating summary...';
 
-        // get page text
         const pageText = Array.from(
             document.body.querySelectorAll('p, h1, h2, h3, h4, h5, h6')
         ).map(el => el.innerText).join(' ');
 
-        let allDifficulties = []; // store 10 versions
+        let allDifficulties = [];
 
         chrome.runtime.sendMessage({
             action: 'GENERATE_SUMMARY',
@@ -61,8 +60,8 @@ const handlePageSummary = () => {
         }, (response) => {
             if (response && response.content) {
                 const content = response.content;
-                allDifficulties = Array.from({length: 10}, (_, i) => {
-                    const regex = new RegExp(`${i+1}:\\s*([\\s\\S]*?)(?=${i+2}:|Original difficulty:|$)`, 'm');
+                allDifficulties = Array.from({ length: 10 }, (_, i) => {
+                    const regex = new RegExp(`${i + 1}:\\s*([\\s\\S]*?)(?=${i + 2}:|Original difficulty:|$)`, 'm');
                     const match = content.match(regex);
                     return match ? match[1].trim() : '';
                 });

@@ -3,8 +3,7 @@ window.FontSizeFeature = {
   sliderContainer: null,
   slider: null,
 
-  createSlider: function() {
-    // container
+  createSlider: function () {
     this.sliderContainer = document.createElement('div');
     this.sliderContainer.id = 'font-size-slider-container';
     this.sliderContainer.style.cssText = `
@@ -21,20 +20,18 @@ window.FontSizeFeature = {
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     `;
 
-    // label
     const label = document.createElement('span');
     label.innerText = 'Font Size';
     label.style.fontFamily = `'DM Sans', sans-serif`;
-    label.style.color = '#1a1f36'; // body text color
+    label.style.color = '#1a1f36';
     label.style.fontSize = '13px';
     this.sliderContainer.appendChild(label);
 
-    // slider track
     this.slider = document.createElement('input');
     this.slider.type = 'range';
     this.slider.min = 95;
     this.slider.max = 130;
-    this.slider.step = 5; // snap by 5
+    this.slider.step = 5;
     this.slider.value = 100;
     this.slider.style.cssText = `
       -webkit-appearance: none;
@@ -50,7 +47,6 @@ window.FontSizeFeature = {
     this.sliderContainer.appendChild(this.slider);
     document.body.appendChild(this.sliderContainer);
 
-    // slider circle styles
     const styleEl = document.createElement('style');
     styleEl.innerHTML = `
       input[type=range]::-webkit-slider-thumb {
@@ -83,7 +79,7 @@ window.FontSizeFeature = {
     document.head.appendChild(styleEl);
   },
 
-  updateFontSize: function() {
+  updateFontSize: function () {
     const scale = parseInt(this.slider.value, 10) / 100;
     const allElements = document.querySelectorAll('body *');
 
@@ -99,7 +95,7 @@ window.FontSizeFeature = {
     });
   },
 
-  toggle: function(isEnabled) {
+  toggle: function (isEnabled) {
     if (isEnabled) {
       if (!this.sliderContainer) this.createSlider();
       this.sliderContainer.style.display = 'flex';

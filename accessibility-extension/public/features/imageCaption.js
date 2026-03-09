@@ -53,7 +53,7 @@ window.ImageCaptionFeature = {
 
     toggle: (isEnabled) => {
         if (isEnabled) {
-            
+
             document.addEventListener('click', handleImageClick, true);
 
             window.PageModifier.injectCSS('caption-cursor', `
@@ -63,7 +63,7 @@ window.ImageCaptionFeature = {
             `);
 
         } else {
-      
+
             document.removeEventListener('click', handleImageClick, true);
             window.PageModifier.removeCSS('caption-cursor');
             const overlay = document.getElementById('image-caption-overlay');

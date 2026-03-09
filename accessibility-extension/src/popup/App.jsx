@@ -6,7 +6,7 @@ function App() {
   const [activeFeatures, setActiveFeatures] = useState({
     dyslexiaFont: false,
     largeCursor: false,
-    fontSize: false, 
+    fontSize: false,
     lineSpacing: false,
     imageCaption: false,
     letterSpacing: false,
@@ -27,7 +27,7 @@ function App() {
 
   const handleToggle = async (featureName) => {
     const newState = !activeFeatures[featureName];
-    
+
     const updatedFeatures = {
       ...activeFeatures,
       [featureName]: newState,
@@ -54,56 +54,56 @@ function App() {
   return (
     <div className="popup-container">
       <h2 className="popup-title">Accessibility Tools</h2>
-      
+
       <div className="button-group">
-        <FeatureButton 
+        <FeatureButton
           label="Dyslexia Font"
           isActive={activeFeatures.dyslexiaFont}
           onClick={() => handleToggle('dyslexiaFont')}
         />
-        <FeatureButton 
-          label="Large Cursor" 
+        <FeatureButton
+          label="Large Cursor"
           isActive={activeFeatures.largeCursor}
           onClick={() => handleToggle('largeCursor')}
         />
-        <FeatureButton 
+        <FeatureButton
           label="Larger Text"
           isActive={activeFeatures.fontSize}
           onClick={() => handleToggle('fontSize')}
         />
-        <FeatureButton 
-          label="Line Spacing" 
+        <FeatureButton
+          label="Line Spacing"
           isActive={activeFeatures.lineSpacing}
           onClick={() => handleToggle('lineSpacing')}
         />
-        <FeatureButton 
-          label="Letter Spacing" 
+        <FeatureButton
+          label="Letter Spacing"
           isActive={activeFeatures.letterSpacing}
           onClick={() => handleToggle('letterSpacing')}
         />
-        <FeatureButton 
-          label="High Contrast" 
+        <FeatureButton
+          label="High Contrast"
           isActive={activeFeatures.highContrast}
           onClick={() => handleToggle('highContrast')}
         />
-        <FeatureButton 
-          label="Image Caption" 
+        <FeatureButton
+          label="Image Caption"
           isActive={activeFeatures.imageCaption}
           onClick={() => handleToggle('imageCaption')}
           description={"Click an image to generate a caption."}
         />
-        <FeatureButton 
-          label="Bionic Reading" 
+        <FeatureButton
+          label="Bionic Reading"
           isActive={activeFeatures.bionicReading}
           onClick={() => handleToggle('bionicReading')}
         />
-        <FeatureButton 
-          label="Page Summary" 
+        <FeatureButton
+          label="Page Summary"
           isActive={activeFeatures.pageSummary}
           onClick={() => handleToggle('pageSummary')}
         />
-        <FeatureButton 
-          label="Text-to-Speech" 
+        <FeatureButton
+          label="Text-to-Speech"
           isActive={activeFeatures.textToSpeech}
           onClick={() => handleToggle('textToSpeech')}
         />

@@ -46,7 +46,7 @@ async function playAudio({ text, voiceId, apiKey }) {
 
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
-    currentAudio = new Audio(url); 
+    currentAudio = new Audio(url);
     await currentAudio.play();
 
     currentAudio.onended = () => URL.revokeObjectURL(url);

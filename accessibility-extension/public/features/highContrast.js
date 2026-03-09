@@ -48,7 +48,7 @@ window.HighContrastFeature = {
     
     `,
 
-    
+
     toggle: (enabled) => {
         if (enabled) {
             window.PageModifier.injectCSS(window.HighContrastFeature.id, window.HighContrastFeature.css);

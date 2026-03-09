@@ -1,6 +1,6 @@
 chrome.storage.local.get(['settings'], (result) => {
   const settings = result.settings;
-  
+
   if (settings) {
     if (settings.dyslexiaFont && window.DyslexiaFontFeature) {
       window.DyslexiaFontFeature.toggle(true);
@@ -76,5 +76,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         break;
     }
   }
-  return true; 
+  return true;
 });

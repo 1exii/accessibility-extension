@@ -13,15 +13,17 @@
     "scripting",
     "contextMenus",
     "offscreen",
-    "activeTab" 
+    "activeTab"
   ],
   "background": {
     "service_worker": "background.js",
-    "type": "module" 
+    "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "<all_urls>"
+      ],
       "js": [
         "pageModifier.js",
         "features/dyslexiaFont.js",
@@ -41,8 +43,14 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["features/*", "pageModifier.js", "fonts/*"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "features/*",
+        "pageModifier.js",
+        "fonts/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }
