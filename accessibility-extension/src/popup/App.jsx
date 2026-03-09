@@ -9,6 +9,12 @@ function App() {
     fontSize: false, 
     lineSpacing: false,
     imageCaption: false,
+    letterSpacing: false,
+    highContrast: false,
+    bionicReading: false,
+    pageSummary: false,
+    textToSpeech: false,
+    smartMagnifier: false,
   });
 
   useEffect(() => {
@@ -84,6 +90,7 @@ function App() {
           label="Image Caption" 
           isActive={activeFeatures.imageCaption}
           onClick={() => handleToggle('imageCaption')}
+          description={"Click an image to generate a caption."}
         />
         <FeatureButton 
           label="Bionic Reading" 
@@ -94,6 +101,16 @@ function App() {
           label="Page Summary" 
           isActive={activeFeatures.pageSummary}
           onClick={() => handleToggle('pageSummary')}
+        />
+        <FeatureButton 
+          label="Text-to-Speech" 
+          isActive={activeFeatures.textToSpeech}
+          onClick={() => handleToggle('textToSpeech')}
+        />
+        <FeatureButton 
+          label="Smart Magnifier" 
+          isActive={activeFeatures.smartMagnifier}
+          onClick={() => handleToggle('smartMagnifier')}
         />
       </div>
     </div>

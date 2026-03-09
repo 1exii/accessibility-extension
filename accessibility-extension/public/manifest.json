@@ -11,7 +11,9 @@
     "activeTab",
     "storage",
     "scripting",
-    "contextMenus" 
+    "contextMenus",
+    "offscreen",
+    "activeTab" 
   ],
   "background": {
     "service_worker": "background.js"
@@ -30,6 +32,8 @@
         "features/imageCaption.js",
         "features/bionicReading.js",
         "features/pageSummary.js",
+        "features/textToSpeech.js",
+        "features/smartMagnify.js",
         "content.js"
       ]
     }
@@ -41,4 +45,3 @@
     }
   ]
 }
-

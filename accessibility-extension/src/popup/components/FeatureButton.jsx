@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FeatureButton({ label, isActive, onClick }) {
+function FeatureButton({ label, isActive, onClick, description }) {
   return (
     <button
       onClick={onClick}

@@ -1,4 +1,4 @@
-const FEATHERLESS_API_KEY = "rc_46f718dc3e25106042d0861863bc5f337172d2d5578c421c1f9d05ca5f437c33";
+const FEATHERLESS_API_KEY = import.meta.env.VITE_FEATHERLESS_API_KEY;
 const FEATHERLESS_API_URL = "https://api.featherless.ai/v1/chat/completions";
 
 const handleImageClick = (event) => {
@@ -80,8 +80,6 @@ window.ImageCaptionFeature = {
             window.PageModifier.injectCSS('caption-cursor', `
                 img { 
                     cursor: pointer !important; 
-                    outline: 3px dashed #4CAF50 !important; 
-                    outline-offset: 2px;
                 }
             `);
 

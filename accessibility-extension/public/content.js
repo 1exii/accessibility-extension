@@ -29,6 +29,12 @@ chrome.storage.local.get(['settings'], (result) => {
     if (settings.pageSummary && window.PageSummaryFeature) {
       window.PageSummaryFeature.toggle(true);
     }
+    if (settings.textToSpeech && window.TextToSpeechFeature) {
+      window.TextToSpeechFeature.toggle(true);
+    }
+    if (settings.smartMagnify && window.SmartMagnifyFeature) {
+      window.SmartMagnifyFeature.toggle(true);
+    }
   }
 });
 
@@ -61,6 +67,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         break;
       case 'pageSummary':
         if (window.PageSummaryFeature) window.PageSummaryFeature.toggle(request.enabled);
+        break;
+      case 'textToSpeech':
+        if (window.TextToSpeechFeature) window.TextToSpeechFeature.toggle(request.enabled);
+        break;
+      case 'smartMagnify':
+        if (window.SmartMagnifyFeature) window.SmartMagnifyFeature.toggle(request.enabled);
         break;
     }
   }

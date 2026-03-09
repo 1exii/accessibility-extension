@@ -1,4 +1,4 @@
-const FEATHERLESS_API_KEY2 = "rc_46f718dc3e25106042d0861863bc5f337172d2d5578c421c1f9d05ca5f437c33";
+const FEATHERLESS_API_KEY2 = import.meta.env.VITE_FEATHERLESS_API_KEY2;
 const FEATHERLESS_API_URL2 = "https://api.featherless.ai/v1/chat/completions";
 
 const handlePageSummary = () => {
@@ -34,7 +34,6 @@ const handlePageSummary = () => {
         slider.type = 'range';
         slider.min = 1;
         slider.max = 10;
-        slider.value = 5;
         slider.id = 'difficulty-slider';
         slider.style.width = '100%';
 
@@ -48,16 +47,14 @@ const handlePageSummary = () => {
         document.body.appendChild(overlay);
 
         overlay.style.display = 'block';
-        document.getElementById('page-summary-text').innerText = 'Generating summary...';
+        summaryText.innerText = 'Generating summary...';
 
         // get page text
         const pageText = Array.from(
             document.body.querySelectorAll('p, h1, h2, h3, h4, h5, h6')
-        )
-            .map(el => el.innerText)
-            .join(' ');
+        ).map(el => el.innerText).join(' ');
 
-        let allDifficulties = []; // store all 10 levels
+        let allDifficulties = []; // store 10 versions
 
         const generateAllDifficulties = () => {
             fetch(FEATHERLESS_API_URL2, {
@@ -75,25 +72,27 @@ const handlePageSummary = () => {
                                 {
                                     type: "text",
                                     text: `You are a text simplifier. Generate 10 versions of the following text, one for each difficulty level from 1 to 10. 
-                                    - DO NOT USE MARKDOWN.
-                                    - Keep meaning and key points.
-                                    - Output plain text.
-                                    - Label each difficulty clearly: 1:, 2:, 3:, ..., 10:.
+- DO NOT USE MARKDOWN.
+- Keep meaning and key points.
+- Output plain text.
+- Label each difficulty clearly: 1:, 2:, 3:, ..., 10:.
 
-                                    Difficulty levels:
-                                    1 = explain to a 5 year old
-                                    2 = explain to a 7 year old  
-                                    3 = explain to a 10 year old
-                                    4 = explain to a middle schooler
-                                    5 = explain to a high schooler
-                                    6 = explain to a college freshman
-                                    7 = explain to a college graduate
-                                    8 = explain to a professional in the field
-                                    9 = explain to an expert researcher
-                                    10 = explain to a PhD specialist using technical jargon
+Difficulty levels:
+1 = explain to a 5 year old
+2 = explain to a 7 year old  
+3 = explain to a 10 year old
+4 = explain to a middle schooler
+5 = explain to a high schooler
+6 = explain to a college freshman
+7 = explain to a college graduate
+8 = explain to a professional in the field
+9 = explain to an expert researcher
+10 = explain to a PhD specialist using technical jargon
 
-                                    Be concise. Keep key points. Match the vocabulary and sentence complexity to the level.
-                                    Output plain sentences only. Nothing else.`
+Be concise. Keep key points. Match the vocabulary and sentence complexity to the level.
+Output plain sentences only. Nothing else.
+
+Also, assign a difficulty level (1-10) to the original text based on these categories, and output it at the end as: Original difficulty: X`
                                 },
                                 {
                                     type: "text",
@@ -109,37 +108,39 @@ const handlePageSummary = () => {
             .then(data => {
                 const content = data.choices?.[0]?.message?.content || '';
 
-                // Split content into 10 difficulties using regex
+                // Parse the 10 difficulties
                 allDifficulties = Array.from({length: 10}, (_, i) => {
-                    const regex = new RegExp(`${i+1}:\\s*([\\s\\S]*?)(?=${i+2}:|$)`, 'm');
+                    const regex = new RegExp(`${i+1}:\\s*([\\s\\S]*?)(?=${i+2}:|Original difficulty:|$)`, 'm');
                     const match = content.match(regex);
                     return match ? match[1].trim() : '';
                 });
 
-                // Show slider's current difficulty
-                const currentDifficulty = parseInt(slider.value, 10);
-                document.getElementById('page-summary-text').innerText = allDifficulties[currentDifficulty - 1] || 'No summary';
+                // Parse AI-assigned original difficulty
+                const origMatch = content.match(/Original difficulty:\s*(\d+)/);
+                const originalDifficulty = origMatch ? parseInt(origMatch[1], 10) : 5;
+
+                // Set slider and initial summary
+                slider.value = originalDifficulty;
+                summaryText.innerText = allDifficulties[originalDifficulty - 1] || 'No summary';
             })
             .catch(err => {
                 console.error('Error generating summaries:', err);
-                document.getElementById('page-summary-text').innerText = 'Error generating summaries';
+                summaryText.innerText = 'Error generating summaries';
             });
         };
 
-        // Generate all 10 levels
         generateAllDifficulties();
 
-        // Slider listener only updates display from pre-generated array
+        // Slider changes display from pre-generated summaries
         slider.addEventListener('input', () => {
             const difficulty = parseInt(slider.value, 10);
-            document.getElementById('page-summary-text').innerText = allDifficulties[difficulty - 1] || 'Generating...';
+            summaryText.innerText = allDifficulties[difficulty - 1] || 'Generating...';
         });
     }
 };
 
 window.PageSummaryFeature = {
     id: "page-summary",
-
     toggle: (isEnabled) => {
         if (isEnabled) {
             handlePageSummary();
