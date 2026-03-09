@@ -107,11 +107,6 @@ function App() {
           isActive={activeFeatures.textToSpeech}
           onClick={() => handleToggle('textToSpeech')}
         />
-        <FeatureButton 
-          label="Smart Magnifier" 
-          isActive={activeFeatures.smartMagnifier}
-          onClick={() => handleToggle('smartMagnifier')}
-        />
       </div>
     </div>
   );

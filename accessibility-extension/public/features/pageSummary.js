@@ -1,4 +1,3 @@
-const FEATHERLESS_API_KEY2 = import.meta.env.VITE_FEATHERLESS_API_KEY2;
 const FEATHERLESS_API_URL2 = "https://api.featherless.ai/v1/chat/completions";
 
 const handlePageSummary = () => {
@@ -56,82 +55,28 @@ const handlePageSummary = () => {
 
         let allDifficulties = []; // store 10 versions
 
-        const generateAllDifficulties = () => {
-            fetch(FEATHERLESS_API_URL2, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${FEATHERLESS_API_KEY2}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    model: "google/gemma-3-27b-it",
-                    messages: [
-                        {
-                            role: "user",
-                            content: [
-                                {
-                                    type: "text",
-                                    text: `You are a text simplifier. Generate 10 versions of the following text, one for each difficulty level from 1 to 10. 
-- DO NOT USE MARKDOWN.
-- Keep meaning and key points.
-- Output plain text.
-- Label each difficulty clearly: 1:, 2:, 3:, ..., 10:.
-
-Difficulty levels:
-1 = explain to a 5 year old
-2 = explain to a 7 year old  
-3 = explain to a 10 year old
-4 = explain to a middle schooler
-5 = explain to a high schooler
-6 = explain to a college freshman
-7 = explain to a college graduate
-8 = explain to a professional in the field
-9 = explain to an expert researcher
-10 = explain to a PhD specialist using technical jargon
-
-Be concise. Keep key points. Match the vocabulary and sentence complexity to the level.
-Output plain sentences only. Nothing else.
-
-Also, assign a difficulty level (1-10) to the original text based on these categories, and output it at the end as: Original difficulty: X`
-                                },
-                                {
-                                    type: "text",
-                                    text: pageText
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens: 4000
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                const content = data.choices?.[0]?.message?.content || '';
-
-                // Parse the 10 difficulties
+        chrome.runtime.sendMessage({
+            action: 'GENERATE_SUMMARY',
+            pageText: pageText
+        }, (response) => {
+            if (response && response.content) {
+                const content = response.content;
                 allDifficulties = Array.from({length: 10}, (_, i) => {
                     const regex = new RegExp(`${i+1}:\\s*([\\s\\S]*?)(?=${i+2}:|Original difficulty:|$)`, 'm');
                     const match = content.match(regex);
                     return match ? match[1].trim() : '';
                 });
 
-                // Parse AI-assigned original difficulty
                 const origMatch = content.match(/Original difficulty:\s*(\d+)/);
                 const originalDifficulty = origMatch ? parseInt(origMatch[1], 10) : 5;
 
-                // Set slider and initial summary
                 slider.value = originalDifficulty;
                 summaryText.innerText = allDifficulties[originalDifficulty - 1] || 'No summary';
-            })
-            .catch(err => {
-                console.error('Error generating summaries:', err);
+            } else {
                 summaryText.innerText = 'Error generating summaries';
-            });
-        };
+            }
+        });
 
-        generateAllDifficulties();
-
-        // Slider changes display from pre-generated summaries
         slider.addEventListener('input', () => {
             const difficulty = parseInt(slider.value, 10);
             summaryText.innerText = allDifficulties[difficulty - 1] || 'Generating...';

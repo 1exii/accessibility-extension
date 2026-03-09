@@ -1,4 +1,3 @@
-const FEATHERLESS_API_KEY = import.meta.env.VITE_FEATHERLESS_API_KEY;
 const FEATHERLESS_API_URL = "https://api.featherless.ai/v1/chat/completions";
 
 const handleImageClick = (event) => {
@@ -37,36 +36,16 @@ const handleImageClick = (event) => {
 
     overlay.style.display = 'block';
     overlay.innerText = 'Generating caption...';
-
-    fetch(FEATHERLESS_API_URL, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${FEATHERLESS_API_KEY}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            model: "google/gemma-3-27b-it", 
-            messages: [
-            {
-                role: "user",
-                content: [
-                { type: "text", text: "Write a concise, one-sentence caption that describes the key objects, actions, and setting in this image, highlighting what someone would need to know if they were unable to see the image. For example: 'A golden retriever puppy plays with a red ball in a grassy field.' NO MARKDOWN FORMATTING." },
-                { type: "image_url", image_url: { url: img.src } }
-                ]
-            }
-            ],
-            max_tokens: 50
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log('Caption data for image:', img.src, data);
-        console.log('Content:', data.choices?.[0]?.message?.content);
-        const captionText = data.choices?.[0]?.message?.content || 'No caption available';
-        overlay.innerText = captionText;
-    })
-    .catch(err => console.error('Error generating caption for image:', img.src, err));
-
+    chrome.runtime.sendMessage({
+        action: 'GENERATE_CAPTION',
+        imageUrl: img.src
+    }, (response) => {
+        if (response && response.caption) {
+            overlay.innerText = response.caption;
+        } else {
+            overlay.innerText = 'Error: ' + (response?.error || 'Unknown error');
+        }
+    });
 };
 
 window.ImageCaptionFeature = {
