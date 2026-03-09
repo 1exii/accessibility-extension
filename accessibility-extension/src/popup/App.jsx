@@ -7,6 +7,8 @@ function App() {
     dyslexiaFont: false,
     largeCursor: false,
     fontSize: false, 
+    lineSpacing: false,
+    imageCaption: false,
   });
 
   useEffect(() => {
@@ -49,7 +51,7 @@ function App() {
       
       <div className="button-group">
         <FeatureButton 
-          label="Dyslexia Font" 
+          label="Dyslexia Font"
           isActive={activeFeatures.dyslexiaFont}
           onClick={() => handleToggle('dyslexiaFont')}
         />
@@ -59,9 +61,39 @@ function App() {
           onClick={() => handleToggle('largeCursor')}
         />
         <FeatureButton 
-          label="Larger Text" 
+          label="Larger Text"
           isActive={activeFeatures.fontSize}
           onClick={() => handleToggle('fontSize')}
+        />
+        <FeatureButton 
+          label="Line Spacing" 
+          isActive={activeFeatures.lineSpacing}
+          onClick={() => handleToggle('lineSpacing')}
+        />
+        <FeatureButton 
+          label="Letter Spacing" 
+          isActive={activeFeatures.letterSpacing}
+          onClick={() => handleToggle('letterSpacing')}
+        />
+        <FeatureButton 
+          label="High Contrast" 
+          isActive={activeFeatures.highContrast}
+          onClick={() => handleToggle('highContrast')}
+        />
+        <FeatureButton 
+          label="Image Caption" 
+          isActive={activeFeatures.imageCaption}
+          onClick={() => handleToggle('imageCaption')}
+        />
+        <FeatureButton 
+          label="Bionic Reading" 
+          isActive={activeFeatures.bionicReading}
+          onClick={() => handleToggle('bionicReading')}
+        />
+        <FeatureButton 
+          label="Page Summary" 
+          isActive={activeFeatures.pageSummary}
+          onClick={() => handleToggle('pageSummary')}
         />
       </div>
     </div>

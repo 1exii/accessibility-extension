@@ -1,5 +1,8 @@
 - font size (slider? cant increase font size too big)
 - change cursor image
+- change cursor color
 - make ui better looking 
 - be able to enter in font size
-- ai summarizing features
+- ai image summarization
+- ai scaled text summarization
+- integrate text to speech (already exists in chrome but just add button for it)

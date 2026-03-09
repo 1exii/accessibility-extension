@@ -11,6 +11,24 @@ chrome.storage.local.get(['settings'], (result) => {
     if (settings.fontSize && window.FontSizeFeature) {
       window.FontSizeFeature.toggle(true);
     }
+    if (settings.lineSpacing && window.LineSpacingFeature) {
+      window.LineSpacingFeature.toggle(true);
+    }
+    if (settings.letterSpacing && window.letterSpacingFeature) {
+      window.letterSpacingFeature.toggle(true);
+    }
+    if (settings.highContrast && window.HighContrastFeature) {
+      window.HighContrastFeature.toggle(true);
+    }
+    if (settings.imageCaption && window.ImageCaptionFeature) {
+      window.ImageCaptionFeature.toggle(true);
+    }
+    if (settings.bionicReading && window.BionicReadingFeature) {
+      window.BionicReadingFeature.toggle(true);
+    }
+    if (settings.pageSummary && window.PageSummaryFeature) {
+      window.PageSummaryFeature.toggle(true);
+    }
   }
 });
 
@@ -25,6 +43,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         break;
       case 'fontSize':
         if (window.FontSizeFeature) window.FontSizeFeature.toggle(request.enabled);
+        break;
+      case 'lineSpacing':
+        if (window.LineSpacingFeature) window.LineSpacingFeature.toggle(request.enabled);
+        break;
+      case 'letterSpacing':
+        if (window.letterSpacingFeature) window.letterSpacingFeature.toggle(request.enabled);
+        break;
+      case 'highContrast':
+        if (window.HighContrastFeature) window.HighContrastFeature.toggle(request.enabled);
+        break;
+      case 'imageCaption':
+        if (window.ImageCaptionFeature) window.ImageCaptionFeature.toggle(request.enabled);
+        break;
+      case 'bionicReading':
+        if (window.BionicReadingFeature) window.BionicReadingFeature.toggle(request.enabled);
+        break;
+      case 'pageSummary':
+        if (window.PageSummaryFeature) window.PageSummaryFeature.toggle(request.enabled);
         break;
     }
   }

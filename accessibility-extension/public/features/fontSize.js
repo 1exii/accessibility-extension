@@ -16,18 +16,18 @@ window.FontSizeFeature = {
           const sizeInPx = parseFloat(currentSize);
           
           if (sizeInPx) {
-            el.setAttribute('data-a11y-orig-font-size', currentSize);
+            el.setAttribute('data-orig-font-size', currentSize);
             el.style.setProperty('font-size', `${sizeInPx * 1.15}px`, 'important');
           }
         }
       });
     } else {
-      const modifiedElements = document.querySelectorAll('[data-a11y-orig-font-size]');
+      const modifiedElements = document.querySelectorAll('[data-orig-font-size]');
       
       modifiedElements.forEach(el => {
-        const originalSize = el.getAttribute('data-a11y-orig-font-size');
+        const originalSize = el.getAttribute('data-orig-font-size');
         el.style.setProperty('font-size', originalSize);
-        el.removeAttribute('data-a11y-orig-font-size');
+        el.removeAttribute('data-orig-font-size');
         
         if (el.getAttribute('style') === '') {
           el.removeAttribute('style');
