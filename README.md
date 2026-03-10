@@ -2,7 +2,8 @@
 
 ## Overview
 This platform enhances web content with AI-powered tools and accessibility features, improving readability and engagement for all users. It combines text simplification, adaptive summaries, selective text-to-speech, and smart visual aids to create a highly interactive and user-friendly experience.  
-
+https://devpost.com/software/accessify-6ck9f7
+https://visible-armadillo-8877.opennote.space/48d350ab-38d8-4ae6-ad5a-2e18348c0d58
 ---
 
 ## Contributors
